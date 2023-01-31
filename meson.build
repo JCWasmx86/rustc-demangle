@@ -4,7 +4,6 @@ r1 = static_library(
     'rustc_demangle',
     'src/lib.rs',
     rust_crate_type: 'rlib',
-    install: true,
 )
 subdir('crates/capi')
 

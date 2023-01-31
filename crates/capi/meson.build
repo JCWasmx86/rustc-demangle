@@ -2,7 +2,8 @@ r2 = static_library(
     'rustc-demangle-capi',
     'src/lib.rs',
     rust_crate_type: 'staticlib',
-    link_with: r1,
     link_whole: r1,
-    #rust_args: ['-L dependency=' + meson.build_root()]
+    install: true,
+    objects: r1.extract_all_objects(recursive: true),
 )
+install_headers('include/rustc_demangle.h')
