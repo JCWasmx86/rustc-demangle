@@ -1,17 +1,19 @@
 project('rustc-demangle', 'c', 'rust', version: '0.1.21')
 
-r1 = static_library(
+rustc_demangle = static_library(
     'rustc_demangle',
     'src/lib.rs',
     rust_crate_type: 'rlib',
 )
 subdir('crates/capi')
 
-dep = declare_dependency(
+rustc_demangle_dep = declare_dependency(
     include_directories: include_directories('crates/capi/include'),
-    link_with: r2,
+    link_with: rustc_demangle_capi,
+    link_args: ['-Wl,--gc-sections'],
 )
 pkgconfig = import('pkgconfig')
-pkgconfig.generate(r2)
+pkgconfig.generate(rustc_demangle_capi)
 
 subdir('tests')
+
